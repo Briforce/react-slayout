@@ -1,5 +1,5 @@
 import "./Frame.css";
 
-const Frame = () => <div className="Frame"></div>;
+const Frame = ({ model }: any) => <div className="Frame"></div>;
 
 export default Frame;
