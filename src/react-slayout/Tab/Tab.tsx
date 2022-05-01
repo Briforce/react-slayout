@@ -1,3 +1,3 @@
-const Tab = () => <></>
+const Tab = () => <></>;
 
 export default Tab;

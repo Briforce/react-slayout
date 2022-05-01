@@ -1,10 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import groupReducer from "./groupSlice";
+import nodeReducer from "./nodeSlice";
 import tabSetReducer from "./tabSetSlice";
+import tabReducer from "./tabSlice";
 
 const layoutReducer = combineReducers({
-  groups: groupReducer,
+  nodes: nodeReducer,
   tabSets: tabSetReducer,
+  tabs: tabReducer,
 });
 
 export default layoutReducer;

@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface TabSet {
-  value: number;
-}
-
-const initialState: TabSet = {
-  value: 0,
+const initialState = {
+  tabs: [],
 };
 
 export const tabSetSlice = createSlice({
