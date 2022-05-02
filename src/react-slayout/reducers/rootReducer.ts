@@ -1,11 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import nodeReducer from "./nodeSlice";
-import tabSetReducer from "./tabSetSlice";
+import tabNodeReducer from "./tabNodeSlice";
 import tabReducer from "./tabSlice";
 
 const layoutReducer = combineReducers({
-  nodes: nodeReducer,
-  tabSets: tabSetReducer,
+  tabNodes: tabNodeReducer,
   tabs: tabReducer,
 });
 
