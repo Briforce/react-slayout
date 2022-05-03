@@ -1,15 +1,14 @@
-import { Split } from "./Split";
+import { SplitDirection } from "./SplitDirection";
 
-interface TabNode {
+interface TabNodeProps {
   id: string;
   parent?: string;
-  level: number;
   tabs: string[];
   first?: string;
   firstPercentage?: number;
   second?: string;
   secondPercentage?: number;
-  split?: Split;
+  split?: SplitDirection;
 }
 
-export type { TabNode };
+export type { TabNodeProps };

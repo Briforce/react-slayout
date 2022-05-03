@@ -1,10 +1,10 @@
 import { EntityId } from "@reduxjs/toolkit";
 import { ReactNode } from "react";
 
-interface Tab {
+interface TabProps {
   id: string;
   component: ReactNode;
   tabNodeId: EntityId;
 }
 
-export type { Tab };
+export type { TabProps };

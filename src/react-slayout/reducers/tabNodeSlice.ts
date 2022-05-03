@@ -1,13 +1,12 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { TabNode } from "../types/TabNode";
+import { TabNodeProps } from "../types/TabNodeProps";
 
-const tabNodeAdapter = createEntityAdapter<TabNode>();
+const tabNodeAdapter = createEntityAdapter<TabNodeProps>();
 
 const getInitialState = () =>
   tabNodeAdapter.addOne(tabNodeAdapter.getInitialState(), {
-    id: crypto.randomUUID(),
+    id: "root-node",
     tabs: [],
-    level: 0,
   });
 
 export const tabNodeSlice = createSlice({
@@ -15,11 +14,10 @@ export const tabNodeSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     addTabNode: (state: any, action: any) => {
-      const { parent, level, tabId } = action.payload;
-      const newNode: TabNode = {
+      const { parent, tabId } = action.payload;
+      const newNode: TabNodeProps = {
         id: crypto.randomUUID(),
         parent,
-        level,
         tabs: [tabId],
       };
       tabNodeAdapter.addOne(state, newNode);
@@ -31,8 +29,8 @@ export const { addTabNode } = tabNodeSlice.actions;
 
 export default tabNodeSlice.reducer;
 
-const { selectIds: tabNodeIds } = tabNodeAdapter.getSelectors(
-  (state: any) => state.tabNodes
-);
-
-export const getLastNodeId = (state: any) => tabNodeIds(state).at(-1);
+export const {
+  selectIds: tabNodeIds,
+  selectAll: allTabNodes,
+  selectById: getTabNodeById,
+} = tabNodeAdapter.getSelectors((state: any) => state.tabNodes);

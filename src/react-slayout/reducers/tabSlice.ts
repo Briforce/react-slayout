@@ -1,19 +1,17 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { Tab } from "../types/Tab";
-import { getLastNodeId } from "./tabNodeSlice";
+import { TabProps } from "../types/TabProps";
 
-const tabAdapter = createEntityAdapter<Tab>();
+const tabAdapter = createEntityAdapter<TabProps>();
 
 export const tabSlice = createSlice({
   name: "tabs",
   initialState: tabAdapter.getInitialState(),
   reducers: {
     addTab: (state, action) => {
-      const { component, id } = action.payload;
-      const tabNodeId = getLastNodeId(state);
+      const { component, id, tabNodeId } = action.payload;
 
       if (tabNodeId) {
-        const newTab: Tab = {
+        const newTab: TabProps = {
           id: id ? id : crypto.randomUUID(),
           component,
           tabNodeId,

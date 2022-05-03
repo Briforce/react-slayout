@@ -1,25 +1,35 @@
 import { useReducer } from "react";
-import { addTab, Frame, layoutReducer, addTabNode } from "../react-slayout";
+import {
+  addTab,
+  Frame,
+  layoutReducer,
+  addTabNode,
+  tabNodeIds,
+} from "../react-slayout";
 import "./App.css";
 
 function App() {
-  const [layoutState, dispatch] = useReducer(layoutReducer, {} as any);
+  const [layout, dispatch] = useReducer(layoutReducer, {
+    tabNodes: { entities: {}, ids: [] },
+  } as any);
+
+  const lastId = tabNodeIds(layout).at(-1);
 
   const addNewTab = () => {
-    dispatch(addTab({ component: <>Hello</> }));
+    dispatch(addTab({ component: <>Hello</>, tabNodeId: lastId }));
   };
 
   const addNewTabNode = () => {
-    dispatch(addTabNode({ parent: "", level: 1 }));
+    dispatch(addTabNode({ parent: "" }));
   };
-  console.log(layoutState);
+  console.log(layout);
   return (
     <div className="App">
       <header className="App-header">
         <button onClick={addNewTabNode}>Add Tab Node</button>
         <button onClick={addNewTab}>Add Tab</button>
         <div className="FrameContainer">
-          <Frame />
+          <Frame layout={layout} />
         </div>
       </header>
     </div>
