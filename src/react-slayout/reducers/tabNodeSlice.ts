@@ -3,15 +3,12 @@ import { TabNodeProps } from "../types/TabNodeProps";
 
 const tabNodeAdapter = createEntityAdapter<TabNodeProps>();
 
-const getInitialState = () =>
-  tabNodeAdapter.addOne(tabNodeAdapter.getInitialState(), {
-    id: "root-node",
-    tabs: [],
-  });
+export const getInitialTabNodeState = () =>
+  tabNodeAdapter.addOne(tabNodeAdapter.getInitialState(), { id: "root-node" });
 
-export const tabNodeSlice = createSlice({
+const tabNodeSlice = createSlice({
   name: "tabNodes",
-  initialState: getInitialState(),
+  initialState: getInitialTabNodeState(),
   reducers: {
     addTabNode: (state: any, action: any) => {
       const { parent, tabId } = action.payload;
@@ -22,12 +19,20 @@ export const tabNodeSlice = createSlice({
       };
       tabNodeAdapter.addOne(state, newNode);
     },
+    addTab: (state: any, action: any) => {
+      const { id, tabId } = action.payload;
+
+      const tabNode = state.entities[id];
+      if (tabNode) {
+        tabNode.tabs.push(tabId);
+      }
+    },
   },
 });
 
-export const { addTabNode } = tabNodeSlice.actions;
+export const { addTabNode, addTab } = tabNodeSlice.actions;
 
-export default tabNodeSlice.reducer;
+export const tabNodeReducer = tabNodeSlice.reducer;
 
 export const {
   selectIds: tabNodeIds,
