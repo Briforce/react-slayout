@@ -1,6 +1,6 @@
 enum SplitDirection {
-  HORIZONTAL = "horz",
-  VERTICAL = "vert",
+  COLUMN = "column",
+  ROW = "row",
 }
 
 export { SplitDirection };

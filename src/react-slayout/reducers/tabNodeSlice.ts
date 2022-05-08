@@ -11,13 +11,26 @@ const tabNodeSlice = createSlice({
   initialState: getInitialTabNodeState(),
   reducers: {
     addTabNode: (state: any, action: any) => {
-      const { parent, tabId } = action.payload;
-      const newNode: TabNodeProps = {
+      const { parent, split } = action.payload;
+      const first: TabNodeProps = {
         id: crypto.randomUUID(),
         parent,
-        tabs: [tabId],
       };
-      tabNodeAdapter.addOne(state, newNode);
+      const second: TabNodeProps = {
+        id: crypto.randomUUID(),
+        parent,
+      };
+      tabNodeAdapter.updateOne(state, {
+        id: parent,
+        changes: {
+          first: first.id,
+          firstPercentage: 50,
+          second: second.id,
+          secondPercentage: 50,
+          split,
+        },
+      });
+      tabNodeAdapter.addMany(state, [first, second]);
     },
     addTab: (state: any, action: any) => {
       const { id, tabId } = action.payload;
@@ -34,8 +47,4 @@ export const { addTabNode, addTab } = tabNodeSlice.actions;
 
 export const tabNodeReducer = tabNodeSlice.reducer;
 
-export const {
-  selectIds: tabNodeIds,
-  selectAll: allTabNodes,
-  selectById: getTabNodeById,
-} = tabNodeAdapter.getSelectors((state: any) => state.tabNodes);
+export const { selectById: getTabNodeById } = tabNodeAdapter.getSelectors();
