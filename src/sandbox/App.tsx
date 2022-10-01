@@ -12,8 +12,6 @@ function App() {
     getInitialTabNodeState()
   );
 
-  console.log(layout);
-
   return (
     <div className="App">
       <header className="App-header">
